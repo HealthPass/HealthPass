@@ -548,6 +548,7 @@ if __name__ == '__main__':
         print(e)
 
     if recover_eth:
+        print('transferring leftover eth from the Issuer account')
         health_pass.send_account_balance(issuer_account.address, contract_owner_account.address)
 
     print('done!')
