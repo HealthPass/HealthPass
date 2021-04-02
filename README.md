@@ -69,10 +69,10 @@ In the real world the functionality in the script would be split between the con
 <br/>
 <br/>
 ## Contributors
-Graham Brown
-Patrick Doyle
-Kevin Schoelz 
-Ian White
+* Graham Brown
+* Patrick Doyle
+* Kevin Schoelz 
+* Ian White
 <br/>
 <br/>
 ## License
