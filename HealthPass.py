@@ -194,7 +194,7 @@ class HealthPass(object):
         print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
 
     # create a HealthPass
-    def create_health_passport(self, health_dict, issuer_account, passport_account):
+    def create_health_passport(self, health_dict, issuer_account, passport_account, allow_only_signed=False):
 
         # for each piece of health data, replace the plain text value with the signed data
         hashed_dict = {k: self.sign_data(v, issuer_account) for k, v in health_dict.items()}
