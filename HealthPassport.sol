@@ -76,7 +76,6 @@ contract HealthPass {
 
     // key will be a hash of the credential itself
     mapping (bytes32 => Credential) private credentials;
-
     
     // authorize a new issuer to be able to create health passports and credentials
     function authorizeIssuer(string memory issuerName, address issuerAddress) public 
@@ -153,7 +152,6 @@ contract HealthPass {
 
             emit HealthPassportUpdated(msg.sender, passportAddress);
     }
-
     
     // create a credential.  Can be a Covid19 test result, vaccination record, etc.  signedCredential is optional
     function createCredential(string memory credentialJson, address passportAddress, bytes memory signedCredentialJson) public 
@@ -196,7 +194,7 @@ contract HealthPass {
     event HealthPassportUpdated(address issuerAddress, address passportAddress);
     event CredentialCreated(address issuerAddress, address passportAddress, bytes32 credentialHash);
     event OwnerChanged(address previousOwner, address newOwner);
-    
+
 
 
 
