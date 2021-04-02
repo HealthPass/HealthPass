@@ -60,7 +60,10 @@ solc-select use 0.8.3
 <br/>
 
 ## How To
-Minimally, edit HealthPass.py and fill in values for INFURA_PROJECT_ID and CONTRACT_OWNER_PRIVATE_KEY and then run the script.
+Minimally, edit HealthPass.py and fill in values for INFURA_PROJECT_ID and CONTRACT_OWNER_PRIVATE_KEY and then run the script from the command line with:
+```
+python3 HealthPass.py
+```
 <br/>
 <br/>
 ## Notes
