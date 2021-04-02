@@ -1,7 +1,6 @@
 # HealthPass
 
-University of Arkansas Blockchain Hackathon 2021 Proof of Concept Smart Contract and example code
-
+University of Arkansas Blockchain Hackathon 2021 Proof of Concept Smart Contract and example code.  Designed to meet all requirements of the Distributed Health Passport Use Case
 
 ## Requirements
 * An Ethereum account on the Ropsten Network with at least 0.1 Eth
