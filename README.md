@@ -2,7 +2,6 @@
 
 University of Arkansas Blockchain Hackathon 2021 Proof of Concept Smart Contract and example code
 
-<br/>
 
 ## Requirements
 * An Ethereum account on the Ropsten Network with at least 0.1 Eth
@@ -11,8 +10,7 @@ University of Arkansas Blockchain Hackathon 2021 Proof of Concept Smart Contract
     2. On the left select Ethereum and then Create New Project.
     3. Give it a name and submit. 
     4. On the next page, under KEYS, copy the PROJECT ID.
-
-<br/>
+* Python3
 
 ## Installation - Windows
 Download and install Python3.6 or higher from https://www.python.org/downloads/
@@ -24,7 +22,6 @@ pip3 install -U web3
 python3 -m pip install -U web3
 ```
 
-<br/>
 
 ## Installation - Ubuntu
 From a clean Ubuntu install run the following commands to install the necessary packages and, optionally, the Solidity compiler and python bindings.
