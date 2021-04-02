@@ -58,7 +58,8 @@ class HealthPass(object):
             'passportAddress',
             'isValid'
         ]
-
+    
+    # initialize the web3 object using the supplied account and price strategy
     def initialize_web3(self, account, price_strategy=None):
 
         # initialize the websocket Infura endpoint
@@ -106,6 +107,7 @@ class HealthPass(object):
                 print('contract not found? waiting...')
                 time.sleep(1)
 
+    # compile the contract using solc
     def compile_contract(self):
         print(f'compiling contract at {self.contract_filepath}')
 
@@ -148,6 +150,7 @@ class HealthPass(object):
         with open(self.bytecode_filepath, 'w') as f:
             json.dump(self.bytecode, f)
 
+    # deploy the contract to the blockchain
     def deploy_contract(self):
 
         print('deploying contract')
@@ -176,6 +179,7 @@ class HealthPass(object):
         # contract_owner_address = self.contract.functions.owner().call()
         # print("Contract Owner's Address: ", contract_owner_address)
 
+    # authorize an Issuer account to be able to create HealthPasses and Credentials
     def authorize_issuer(self, issuer_name, issuer_account):
 
         print(f'Authorizing {issuer_name} ({issuer_account.address}) as Issuer')
@@ -189,6 +193,7 @@ class HealthPass(object):
         print(f'{issuer_name} authorized!')
         print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
 
+    # create a HealthPass
     def create_health_passport(self, health_dict, issuer_account, passport_account):
 
         # for each piece of health data, replace the plain text value with the signed data
@@ -197,14 +202,17 @@ class HealthPass(object):
         # turn the health data into a json string
         json_string = json.dumps(hashed_dict)
 
-        tx_hash = self.contract.functions.createHealthPassport(json_string, passport_account.address).transact()
+        # call the createHealthPassport() Smart Contract function 
+        tx_hash = self.contract.functions.createHealthPassport(json_string, passport_account.address,
+                                                               allow_only_signed).transact()
         print(f'Create Health Passport transaction URL: {self.etherscan_url}/tx/0x{binascii.hexlify(tx_hash).decode()}')
 
+        # wait for the transaction to complete and print the cost
         tx_receipt = self.web3.eth.waitForTransactionReceipt(tx_hash, timeout=self.timeout)
-
         print(f'Health Passport {passport_account.address} created!')
         print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
 
+    # create a Credential
     def create_credential(self, credential_dict, issuer_account, passport_account):
 
         # for each piece of credential data, replace the plain text value with the signed data
@@ -212,19 +220,14 @@ class HealthPass(object):
 
         # turn the credential data into a json string
         json_string = json.dumps(hashed_dict)
-        print(json_string)
 
+        # call the createCredential() Smart Contract function 
         tx_hash = self.contract.functions.createCredential(json_string, passport_account.address, b'').transact()
         print(f'Create Health Passport transaction URL: {self.etherscan_url}/tx/0x{binascii.hexlify(tx_hash).decode()}')
-
+        
+        # wait for the transaction to complete and print the cost
         tx_receipt = self.web3.eth.waitForTransactionReceipt(tx_hash, timeout=self.timeout)
-
-        # expected_credential_hash = self.web3.soliditySha3(['string'], [json_string])
-        # expected_credential_hash = self.web3.keccak(text=json_string)
-        # print(f'Expected hash {expected_credential_hash}')
-
         print(f'Credential created for passport {passport_account.address}!')
-
         print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
 
     # query the Smart Contract for the specified passport
@@ -375,13 +378,10 @@ def create_new_account():
 
 
 
-
-# NEXT STEPS
-
-
 # CONFIGURATION
 ########################################################################################
 
+# please don't abuse this!
 INFURA_PROJECT_ID = '1a7577ceeb01411dbb20012cea2c3316'
 
 # the private key of the account that will be used to deploy the contract
@@ -427,6 +427,8 @@ GAS_PRICE_STRATEGY = fast_gas_price_strategy
 
 # only execute if this script is called directly
 if __name__ == '__main__':
+    
+    print('starting!')
 
     # initialize an instance of the HealthPass class
     health_pass = HealthPass(contract_filepath=CONTRACT_FILEPATH,
@@ -538,6 +540,9 @@ if __name__ == '__main__':
             print('\n\nUser Passport or Credential Invalid! Deny entry!\n\n')
         else:
             print('\n\nUser Passport and Credential valid! Access granted!\n\n')
+        
+        #########################################################################
+        #########################################################################
 
     except Exception as e:
         print(e)
