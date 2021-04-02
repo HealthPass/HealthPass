@@ -92,13 +92,12 @@ class HealthPass(object):
         # if we have the address we just need to initialize it
         if self.contract_address:
 
-            print('contract address provided, initializing...')
             self.contract = self.web3.eth.contract(address=self.contract_address, abi=self.abi)
 
         else:
             # if we dont have the contract address then we need to deploy it
             self.deploy_contract()
-            print('new contract initialized')
+            print('New contract initialized')
 
             # sometimes there is a delay after deploying a contract so we
             #  need to wait until its for sure available
@@ -109,7 +108,7 @@ class HealthPass(object):
 
     # compile the contract using solc
     def compile_contract(self):
-        print(f'compiling contract at {self.contract_filepath}')
+        print(f'Compiling contract at {self.contract_filepath}')
 
         # load the contract source code from file
         with open(self.contract_filepath, 'r') as f:
@@ -153,7 +152,7 @@ class HealthPass(object):
     # deploy the contract to the blockchain
     def deploy_contract(self):
 
-        print('deploying contract')
+        print('Deploying contract')
 
         # initialize the contract
         self.contract = self.web3.eth.contract(abi=self.abi, bytecode=self.bytecode)
@@ -168,7 +167,7 @@ class HealthPass(object):
         self.contract_address = tx_receipt.contractAddress
 
         print(f'Contract URL: {self.etherscan_url}/address/{tx_receipt.contractAddress}')
-        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
+        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth\n')
 
         # after deploying the contract, do a quick test to check the owner
 
@@ -191,7 +190,7 @@ class HealthPass(object):
 
         tx_receipt = self.web3.eth.waitForTransactionReceipt(tx_hash, timeout=self.timeout)
         print(f'{issuer_name} authorized!')
-        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
+        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth\n')
 
     # create a HealthPass
     def create_health_passport(self, health_dict, issuer_account, passport_account, allow_only_signed=False):
@@ -210,7 +209,7 @@ class HealthPass(object):
         # wait for the transaction to complete and print the cost
         tx_receipt = self.web3.eth.waitForTransactionReceipt(tx_hash, timeout=self.timeout)
         print(f'Health Passport {passport_account.address} created!')
-        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
+        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth\n')
 
     # create a Credential
     def create_credential(self, credential_dict, issuer_account, passport_account):
@@ -223,12 +222,12 @@ class HealthPass(object):
 
         # call the createCredential() Smart Contract function 
         tx_hash = self.contract.functions.createCredential(json_string, passport_account.address, b'').transact()
-        print(f'Create Health Passport transaction URL: {self.etherscan_url}/tx/0x{binascii.hexlify(tx_hash).decode()}')
+        print(f'Create Credential transaction URL: {self.etherscan_url}/tx/0x{binascii.hexlify(tx_hash).decode()}')
         
         # wait for the transaction to complete and print the cost
         tx_receipt = self.web3.eth.waitForTransactionReceipt(tx_hash, timeout=self.timeout)
         print(f'Credential created for passport {passport_account.address}!')
-        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth')
+        print(f'Transaction Cost: {self.calculate_transaction_cost(tx_receipt)} Eth\n')
 
     # query the Smart Contract for the specified passport
     def get_health_passport(self, passport_address):
@@ -428,7 +427,7 @@ GAS_PRICE_STRATEGY = fast_gas_price_strategy
 # only execute if this script is called directly
 if __name__ == '__main__':
     
-    print('starting!')
+    print('Starting!\n')
 
     # initialize an instance of the HealthPass class
     health_pass = HealthPass(contract_filepath=CONTRACT_FILEPATH,
@@ -548,8 +547,8 @@ if __name__ == '__main__':
         print(e)
 
     if recover_eth:
-        print('transferring leftover eth from the Issuer account')
+        print('Transferring leftover eth from the Issuer account')
         health_pass.send_account_balance(issuer_account.address, contract_owner_account.address)
 
-    print('done!')
+    print('\n\nDone!')
 
