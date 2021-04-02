@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: Apache-2.0
 
 pragma solidity =0.8.3;
 
@@ -190,8 +190,18 @@ contract HealthPass {
             emit CredentialCreated(msg.sender, passportAddress, credentialHash);
     }
 
+    // the events
+    event IssuerAuthorized(string issuerName, address issuerAddress);
+    event HealthPassportCreated(address issuerAddress, address passportAddress);
+    event HealthPassportUpdated(address issuerAddress, address passportAddress);
+    event CredentialCreated(address issuerAddress, address passportAddress, bytes32 credentialHash);
+    event OwnerChanged(address previousOwner, address newOwner);
+    
+
+
+
     // not yet implemented
-    // because the hash will change, thiswill require finding the existing credential, 
+    // because the hash will change, this will require finding the existing credential, 
     //  deleting it and then recreating it
     function updateCredential() public {}
 
@@ -203,10 +213,5 @@ contract HealthPass {
     }
 
 
-    // the events
-    event IssuerAuthorized(string issuerName, address issuerAddress);
-    event HealthPassportCreated(address issuerAddress, address passportAddress);
-    event HealthPassportUpdated(address issuerAddress, address passportAddress);
-    event CredentialCreated(address issuerAddress, address passportAddress, bytes32 credentialHash);
-    event OwnerChanged(address previousOwner, address newOwner);
+
 }
