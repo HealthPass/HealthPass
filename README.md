@@ -4,7 +4,7 @@ University of Arkansas Blockchain Hackathon 2021 Proof of Concept Smart Contract
 
 ## Requirements
 * An Ethereum account on the Ropsten Network with at least 0.1 Eth
-* ~~Infura API Key for interacting with the Ethereum network.~~  For ease of use, I have temporarily included an existing Infura API key.  Please don't abuse it and consider creating your own.
+* Infura API Key for interacting with the Ethereum network
     1. Create a free account at https://infura.io/.  
     2. On the left select Ethereum and then Create New Project.
     3. Give it a name and submit. 
