@@ -64,18 +64,15 @@ Minimally, edit HealthPass.py and fill in values for INFURA_PROJECT_ID and CONTR
 ```
 python3 HealthPass.py
 ```
-<br/>
-<br/>
+
 ## Notes
 In the real world the functionality in the script would be split between the contract Owner, Issuers and Verifiers
-<br/>
-<br/>
+
 ## Contributors
 * Graham Brown
 * Patrick Doyle
 * Kevin Schoelz 
 * Ian White
-<br/>
-<br/>
+
 ## License
 Apache 2.0
